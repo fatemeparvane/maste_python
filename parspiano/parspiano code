@@ -1,0 +1,28 @@
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://pianopars.ir/product-category/violin/"
+response = requests.get(url)
+soup = BeautifulSoup(response.text, "html.parser")
+
+violins = soup.find_all("li", class_="product")
+
+name_list = []
+price_list = []
+
+for violin in violins:
+    name_tag = violin.find("h2", class_="woocommerce-loop-product__title")
+    price_tag = violin.find("span", class_="woocommerce-Price-amount amount")
+    if  "تومان" not in name_tag:
+        name = name_tag.text.strip()
+        price = price_tag.text.strip() if price_tag else "NA"
+    else:
+        price=name_tag.text.strip()   
+        name = price_tag.text.strip() if price_tag else "NA"
+
+    name_list.append(name)
+    price_list.append(price)
+
+pars_list = pd.DataFrame({"Violin Name": name_list,"Price": price_list})
+pars_list

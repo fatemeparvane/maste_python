@@ -1,0 +1,32 @@
+import pandas as pd
+import requests
+import re
+from bs4 import BeautifulSoup
+
+url = "https://sazkala.com/product-category/%D8%B2%D9%87%DB%8C/%D9%88%DB%8C%D9%88%D9%84%D9%86/"
+response = requests.get(url)
+# if do not use the code below, we can not see the dataframe in a legible format and we see some symbols only!
+response.encoding = 'utf-8'  
+soup = BeautifulSoup(response.text, "html.parser")
+
+violins = soup.find_all("li", class_="product")
+
+name_list = []
+price_list = []
+
+for violin in violins:
+    name_tag = violin.find("span", class_="woocommerce-loop-product__title")
+    name = name_tag.text.strip() 
+    name = re.sub(r'\bسایز\b|\b\d+(\.\d+)?\s*', '', name)
+
+    
+    price_tag = violin.find("span", class_="woocommerce-Price-amount amount")
+    price = price_tag.text.strip() if price_tag else "NA"
+
+    name_list.append(name)
+    price_list.append(price)
+
+sazkala = pd.DataFrame({"Violin Name": name_list, "Price": price_list})
+writer=pd.ExcelWriter("sazresult.xlsx")
+sazkala.to_excel(writer)
+writer.save()
