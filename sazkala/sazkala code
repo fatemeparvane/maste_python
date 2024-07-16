@@ -9,6 +9,7 @@ response = requests.get(url)
 response.encoding = 'utf-8'  
 soup = BeautifulSoup(response.text, "html.parser")
 
+
 violins = soup.find_all("li", class_="product")
 
 name_list = []
