@@ -1,3 +1,4 @@
+
 #test
 
 num1=input("num1:")
@@ -5,3 +6,9 @@ num2=input("num2:")
 num3=input("num3:")
 sum=num1+num2+num3
 print(sum)
+
+#test2
+print("hi im arshiya")
+
+#test3
+print("finishes")
