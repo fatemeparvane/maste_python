@@ -11,7 +11,7 @@ print(sum)
 print("hi im arshiya")
 
 #test3
-print("finishes")
+print("finished")
 
 #test4
 for i in range(10):
