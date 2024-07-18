@@ -12,3 +12,7 @@ print("hi im arshiya")
 
 #test3
 print("finishes")
+
+#test4
+for i in range(10):
+    print(i*"*")

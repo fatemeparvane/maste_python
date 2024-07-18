@@ -1,1 +1,2 @@
-print("hi im arshiya")
+for i in range(10):
+    print(i*"*")
